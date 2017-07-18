@@ -59,18 +59,20 @@ module SendCloud
 
     def self.get(template)
       # signature requires template
-      signature = sign({
-          smsUser: @user,
-          templateId: template
-      })
-      response = RestClient.get 'http://www.sendcloud.net/smsapi/get?',
-                                 params: {
-                                   smsUser: @user,
-                                   templateId: template,
-                                   signature: signature
-                                }
+      # signature = sign({
+      #     smsUser: @user,
+      #     templateId: template
+      # })
+      params = {
+        smsUser: @user,
+        templateId: template,
+        signature: sign({
+            smsUser: @user,
+            templateId: template
+        })
+      }
+      response = RestClient.get 'http://www.sendcloud.net/smsapi/get?', params: params
       JSON.parse(response.to_s)
-      
     end
   end
 end
