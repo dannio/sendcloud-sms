@@ -69,7 +69,7 @@ module SendCloud
                                    templateId: template,
                                    signature: signature
                                 }
-      JSON.parse(response.to_s)['statusCode']
+      JSON.parse(response.to_s)
       
     end
   end
