@@ -18,7 +18,7 @@ module SendCloud
 
     def self.sign(attritutes)
       param_str = "#{@api_key}&"
-      param_str << attritutes.sort {|a, b| a.to_s <=> b.to_s}.map { |item| param_str << "#{item[0]}=#{item[1]}&" }
+      attritutes.sort {|a, b| a.to_s <=> b.to_s}.map { |item| param_str << "#{item[0]}=#{item[1]}&" }
       param_str << @api_key
       Digest::MD5.new.update(param_str)
     end
