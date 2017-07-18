@@ -59,13 +59,9 @@ module SendCloud
 
     def self.get(template)
       # signature requires template
-      # signature = sign({
-      #     smsUser: @user,
-      #     templateId: template
-      # })
       params = {
         smsUser: @user,
-        templateId: template,
+        templateIdStr: template,
         signature: sign({
             smsUser: @user,
             templateId: template
