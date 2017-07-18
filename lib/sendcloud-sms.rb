@@ -64,9 +64,11 @@ module SendCloud
           templateId: template
       })
       response = RestClient.get 'http://www.sendcloud.net/smsapi/get?',
-                                 smsUser: @user,
-                                 templateId: template,
-                                 signature: signature
+                                 params: {
+                                   smsUser: @user,
+                                   templateId: template,
+                                   signature: signature
+                                }
       JSON.parse(response.to_s)['statusCode']
       
     end
