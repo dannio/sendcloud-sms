@@ -20,7 +20,6 @@ module SendCloud
       param_str = "#{@api_key}&"
       params.sort {|a, b| a.to_s <=> b.to_s}.map { |item| param_str << "#{item[0]}=#{item[1]}&" }
       param_str << @api_key
-      puts param_str
       Digest::MD5.new.update(param_str)
     end
 
@@ -68,7 +67,6 @@ module SendCloud
             templateIdStr: template
         })
       }
-      puts params
       response = RestClient.get 'http://www.sendcloud.net/smsapi/get?', params: params
       JSON.parse(response.to_s)
     end
