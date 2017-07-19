@@ -16,9 +16,9 @@ module SendCloud
       @api_key = api_key
     end
 
-    def self.sign(attritutes)
+    def self.sign(params)
       param_str = "#{@api_key}&"
-      attritutes.sort {|a, b| a.to_s <=> b.to_s}.map { |item| param_str << "#{item[0]}=#{item[1]}&" }
+      params.sort {|a, b| a.to_s <=> b.to_s}.map { |item| param_str << "#{item[0]}=#{item[1]}&" }
       param_str << @api_key
       Digest::MD5.new.update(param_str)
     end
@@ -63,10 +63,11 @@ module SendCloud
         smsUser: @user,
         templateIdStr: template,
         signature: sign({
-            # smsUser: @user,
+            smsUser: @user,
             templateId: template
         })
       }
+      puts params
       response = RestClient.get 'http://www.sendcloud.net/smsapi/get?', params: params
       JSON.parse(response.to_s)
     end
