@@ -65,7 +65,7 @@ module SendCloud
         templateIdStr: template,
         signature: sign({
             smsUser: @user,
-            templateId: template
+            templateIdStr: template
         })
       }
       puts params
