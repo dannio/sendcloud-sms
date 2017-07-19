@@ -63,7 +63,7 @@ module SendCloud
         smsUser: @user,
         templateIdStr: template,
         signature: sign({
-            smsUser: @user,
+            # smsUser: @user,
             templateId: template
         })
       }
