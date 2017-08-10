@@ -57,17 +57,28 @@ module SendCloud
       JSON.parse(response.to_s)['statusCode']
     end
 
-    def self.get(template)
+    def self.get(template_id)
       # signature requires template
       params = {
         smsUser: @user,
-        templateIdStr: template,
+        templateIdStr: template_id,
         signature: sign({
             smsUser: @user,
-            templateIdStr: template
+            templateIdStr: template_id
         })
       }
       response = RestClient.get 'http://www.sendcloud.net/smsapi/get?', params: params
+      JSON.parse(response.to_s)
+    end
+
+    def self.get_all
+      params = {
+        smsUser: @user,
+        signature: sign({
+            smsUser: @user,
+        })
+      }
+      response = RestClient.get 'http://www.sendcloud.net/smsapi/list?', params: params
       JSON.parse(response.to_s)
     end
   end
