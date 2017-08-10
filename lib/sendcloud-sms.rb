@@ -118,7 +118,7 @@ module SendCloud
                                   signName: signName,
                                   smsTypeStr: smsTypeStr,
                                   signature: signature
-      JSON.parse(response.to_s)['statusCode']
+      JSON.parse(response.to_s)
     end
 
     def self.submit(template_id)
