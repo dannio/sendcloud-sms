@@ -71,7 +71,7 @@ module SendCloud
       JSON.parse(response.to_s)
     end
 
-    def self.get_all
+    def self.list
       params = {
         smsUser: @user,
         signature: sign({

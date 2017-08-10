@@ -1,6 +1,10 @@
 # Sendcloud SMS
 ## Brief
 
+This is a fork off https://github.com/heckpsi-lab/sendcloud-sms
+
+I extended the original to include "get" and "list"
+
 `sendcloud-sms` an unofficial support for developers to send SMS with SendCloud API in Ruby. The gem packaged the official Restful API to a better ruby-style methods.
 
 ## Installation
@@ -85,9 +89,19 @@ SendCloud::SMS.load!('./config/sendcloud.yml', (Rails.env.development ? :develop
 parameter `phone` could be either an array of phone numbers or one phone number
 
 #### Usage:
-
+Send
 ```ruby
 SendCloud::SMS.send(template_id, phone, vars)
+```
+
+Get
+```ruby
+SendCloud::SMS.get(template_id)
+```
+
+List
+```ruby
+SendCloud::SMS.list
 ```
 
 #### Example:
