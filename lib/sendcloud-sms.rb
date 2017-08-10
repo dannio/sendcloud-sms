@@ -81,5 +81,71 @@ module SendCloud
       response = RestClient.get 'http://www.sendcloud.net/smsapi/list?', params: params
       JSON.parse(response.to_s)
     end
+
+    def self.create(templateName, templateText, signName, smsTypeStr)
+      params = {
+        smsUser: @user,
+        templateName: templateName,
+        templateText: templateText,
+        signName: signName,
+        smsTypeStr: smsTypeStr,
+        signature: sign({
+            smsUser: @user,
+            templateName: templateName,
+            templateText: templateText,
+            signName: signName,
+            smsTypeStr: smsTypeStr,
+        })
+      }
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/addsms?', params: params
+      JSON.parse(response.to_s)['statusCode']
+    end
+
+    def self.update(template_id, templateName, templateText, signName, smsTypeStr)
+      params = {
+        smsUser: @user,
+        templateIdStr: template_id,
+        templateName: templateName,
+        templateText: templateText,
+        signName: signName,
+        smsTypeStr: smsTypeStr,
+        signature: sign({
+            smsUser: @user,
+            templateIdStr: template_id,
+            templateName: templateName,
+            templateText: templateText,
+            signName: signName,
+            smsTypeStr: smsTypeStr,
+        })
+      }
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/updatesms?', params: params
+      JSON.parse(response.to_s)['statusCode']
+    end
+
+    def self.submit(template_id)
+      params = {
+        smsUser: @user,
+        templateIdStr: template_id,
+        signature: sign({
+            smsUser: @user,
+            templateIdStr: template_id
+        })
+      }
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/submitsms?', params: params
+      JSON.parse(response.to_s)['statusCode']
+    end
+
+    def self.delete(template_id)
+      params = {
+        smsUser: @user,
+        templateIdStr: template_id,
+        signature: sign({
+            smsUser: @user,
+            templateIdStr: template_id
+        })
+      }
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/deletesms?', params: params
+      JSON.parse(response.to_s)['statusCode']
+    end
   end
 end
