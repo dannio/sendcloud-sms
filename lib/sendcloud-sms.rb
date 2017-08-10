@@ -101,13 +101,14 @@ module SendCloud
       JSON.parse(response.to_s)['statusCode']
     end
 
-    def self.update(template_id, templateName, templateText, signName, smsTypeStr)
+    def self.update(template_id, templateName, templateText, signName, signPositionStr, smsTypeStr)
       signature = sign({
           smsUser: @user,
           templateIdStr: template_id,
           templateName: templateName,
           templateText: templateText,
           signName: signName,
+          signPositionStr: signPositionStr,
           smsTypeStr: smsTypeStr,
       })
       response = RestClient.post 'http://www.sendcloud.net/smsapi/updatesms?',
@@ -116,6 +117,7 @@ module SendCloud
                                   templateName: templateName,
                                   templateText: templateText,
                                   signName: signName,
+                                  signPositionStr: signPositionStr,
                                   smsTypeStr: smsTypeStr,
                                   signature: signature
       JSON.parse(response.to_s)
