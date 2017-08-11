@@ -82,22 +82,23 @@ module SendCloud
       JSON.parse(response.to_s)
     end
 
-    def self.create(templateName, templateText, signName, smsTypeStr)
-      params = {
-        smsUser: @user,
-        templateName: templateName,
-        templateText: templateText,
-        signName: signName,
-        smsTypeStr: smsTypeStr,
-        signature: sign({
-            smsUser: @user,
-            templateName: templateName,
-            templateText: templateText,
-            signName: signName,
-            smsTypeStr: smsTypeStr,
-        })
-      }
-      response = RestClient.post 'http://www.sendcloud.net/smsapi/addsms?', params: params
+    def self.create(templateName, templateText, signName, signPositionStr, smsTypeStr)
+      signature = sign({
+          smsUser: @user,
+          templateName: templateName,
+          templateText: templateText,
+          signName: signName,
+          signPositionStr: signPositionStr,
+          smsTypeStr: smsTypeStr,
+      })
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/addsms?',
+                                  smsUser: @user,
+                                  templateName: templateName,
+                                  templateText: templateText,
+                                  signName: signName,
+                                  signPositionStr: signPositionStr,
+                                  smsTypeStr: smsTypeStr,
+                                  signature: signature
       JSON.parse(response.to_s)['statusCode']
     end
 
@@ -124,28 +125,26 @@ module SendCloud
     end
 
     def self.submit(template_id)
-      params = {
-        smsUser: @user,
-        templateIdStr: template_id,
-        signature: sign({
-            smsUser: @user,
-            templateIdStr: template_id
-        })
-      }
-      response = RestClient.post 'http://www.sendcloud.net/smsapi/submitsms?', params: params
+      signature = sign({
+          smsUser: @user,
+          templateIdStr: template_id
+      })
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/submitsms?',
+                                  smsUser: @user,
+                                  templateIdStr: template_id,
+                                  signature: signature
       JSON.parse(response.to_s)['statusCode']
     end
 
     def self.delete(template_id)
-      params = {
-        smsUser: @user,
-        templateIdStr: template_id,
-        signature: sign({
-            smsUser: @user,
-            templateIdStr: template_id
-        })
-      }
-      response = RestClient.post 'http://www.sendcloud.net/smsapi/deletesms?', params: params
+      signature = sign({
+          smsUser: @user,
+          templateIdStr: template_id
+      })
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/deletesms?',
+                                  smsUser: @user,
+                                  templateIdStr: template_id,
+                                  signature: signature
       JSON.parse(response.to_s)['statusCode']
     end
   end
