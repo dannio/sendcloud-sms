@@ -133,7 +133,7 @@ module SendCloud
                                   smsUser: @user,
                                   templateIdStr: template_id,
                                   signature: signature
-      JSON.parse(response.to_s)['statusCode']
+      JSON.parse(response.to_s)
     end
 
     def self.delete(template_id)
