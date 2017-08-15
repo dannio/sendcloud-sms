@@ -104,11 +104,33 @@ List
 SendCloud::SMS.list
 ```
 
+Update
+```ruby
+SendCloud::SMS.update(template_id, template_name, template_text, sign_name, sign_position_str, sms_type_str)
+```
+
+Create
+```ruby
+SendCloud::SMS.create(template_name, template_text, sign_name, sign_position_str, sms_type_str)
+```
+
+Delete
+```ruby
+SendCloud::SMS.delete(template_id)
+```
+
+Submit - Sendcloud requires you to submit the template for approval before usage
+```ruby
+SendCloud::SMS.submit(template_id)
+```
+
 #### Example:
 
 ```ruby
 SendCloud::SMS.send(1234, '18000000000', {veri_code: '1234'})
 SendCloud::SMS.send(4321, %w'18000000000 13800000000 13700000000', {broadcast: 'Hello SMS!'})
+
+SendCloud::SMS.create('Welcome template', 'Welcome to our company, %name%!', 'Signature name', 0, 1)
 ```
 
 ### Send Voice Message
