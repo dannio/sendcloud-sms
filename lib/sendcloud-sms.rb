@@ -57,14 +57,14 @@ module SendCloud
       JSON.parse(response.to_s)['statusCode']
     end
 
-    def self.get(template_id)
+    def self.get(templateId)
       # signature requires template
       params = {
         smsUser: @user,
-        templateIdStr: template_id,
+        templateIdStr: templateId,
         signature: sign({
             smsUser: @user,
-            templateIdStr: template_id
+            templateIdStr: templateId
         })
       }
       response = RestClient.get 'http://www.sendcloud.net/smsapi/get?', params: params
@@ -102,10 +102,10 @@ module SendCloud
       JSON.parse(response.to_s)
     end
 
-    def self.update(template_id, templateName, templateText, signName, signPositionStr, smsTypeStr)
+    def self.update(templateId, templateName, templateText, signName, signPositionStr, smsTypeStr)
       signature = sign({
           smsUser: @user,
-          templateIdStr: template_id,
+          templateIdStr: templateId,
           templateName: templateName,
           templateText: templateText,
           signName: signName,
@@ -114,7 +114,7 @@ module SendCloud
       })
       response = RestClient.post 'http://www.sendcloud.net/smsapi/updatesms?',
                                   smsUser: @user,
-                                  templateIdStr: template_id,
+                                  templateIdStr: templateId,
                                   templateName: templateName,
                                   templateText: templateText,
                                   signName: signName,
@@ -124,28 +124,82 @@ module SendCloud
       JSON.parse(response.to_s)['statusCode']
     end
 
-    def self.submit(template_id)
+    def self.submit(templateId)
       signature = sign({
           smsUser: @user,
-          templateIdStr: template_id
+          templateIdStr: templateId
       })
       response = RestClient.post 'http://www.sendcloud.net/smsapi/submitsms?',
                                   smsUser: @user,
-                                  templateIdStr: template_id,
+                                  templateIdStr: templateId,
                                   signature: signature
       JSON.parse(response.to_s)
     end
 
-    def self.delete(template_id)
+    def self.delete(templateId)
       signature = sign({
           smsUser: @user,
-          templateIdStr: template_id
+          templateIdStr: templateId
       })
       response = RestClient.post 'http://www.sendcloud.net/smsapi/deletesms?',
                                   smsUser: @user,
-                                  templateIdStr: template_id,
+                                  templateIdStr: templateId,
                                   signature: signature
       JSON.parse(response.to_s)['statusCode']
+    end
+
+    def self.get_signature(signId)
+      params = {
+        smsUser: @user,
+        id: signId,
+        signature: sign({
+            smsUser: @user,
+            id: signId,
+        })
+      }
+      response = RestClient.get 'http://www.sendcloud.net/smsapi/sign/get?', params: params
+      JSON.parse(response.to_s)
+    end
+
+    def self.list_signatures
+      params = {
+        smsUser: @user,
+        signature: sign({
+            smsUser: @user,
+        })
+      }
+      response = RestClient.get 'http://www.sendcloud.net/smsapi/sign/list?', params: params
+      JSON.parse(response.to_s)
+    end
+
+    def self.update_signature(signId, signType, signName)
+      signature = sign({
+          smsUser: @user,
+          id: signId,
+          signType: signType,
+          signName: signName
+      })
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/sign/updatesms?',
+                                  smsUser: @user,
+                                  id: signId,
+                                  signType: signType,
+                                  signName: signName
+                                  signature: signature
+      JSON.parse(response.to_s)['statusCode']
+    end
+
+    def self.create_signature(signType, signName)
+      signature = sign({
+          smsUser: @user,
+          signType: signType,
+          signName: signName
+      })
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/sign/save?',
+                                  smsUser: @user,
+                                  signType: signType,
+                                  signName: signName
+                                  signature: signature
+      JSON.parse(response.to_s)
     end
   end
 end
