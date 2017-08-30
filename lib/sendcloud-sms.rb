@@ -183,7 +183,7 @@ module SendCloud
                                   smsUser: @user,
                                   id: signId,
                                   signType: signType,
-                                  signName: signName
+                                  signName: signName,
                                   signature: signature
       JSON.parse(response.to_s)['statusCode']
     end
@@ -197,7 +197,7 @@ module SendCloud
       response = RestClient.post 'http://www.sendcloud.net/smsapi/sign/save?',
                                   smsUser: @user,
                                   signType: signType,
-                                  signName: signName
+                                  signName: signName,
                                   signature: signature
       JSON.parse(response.to_s)
     end
