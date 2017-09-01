@@ -179,7 +179,7 @@ module SendCloud
           signType: signType,
           signName: signName
       })
-      response = RestClient.post 'http://www.sendcloud.net/smsapi/sign/updatesms?',
+      response = RestClient.post 'http://www.sendcloud.net/smsapi/sign/update?',
                                   smsUser: @user,
                                   id: signId,
                                   signType: signType,
