@@ -124,6 +124,25 @@ Submit - Sendcloud requires you to submit the template for approval before usage
 SendCloud::SMS.submit(template_id)
 ```
 
+Get Signature
+```
+SendCloud::SMS.get_signature(signature_id)
+```
+
+List Signatures
+```
+SendCloud::SMS.list_signatures
+```
+
+Update Signature
+```
+SendCloud::SMS.update_signature(signature_id, signature_type, signature_name)
+```
+
+Create Signature
+```
+SendCloud::SMS.create_signature(signature_type, signature_name)
+```
 #### Example:
 
 ```ruby
@@ -180,6 +199,13 @@ The method returns an integer as code of response. Check the following list for 
 | 498         | Too many SMS for one phone number in one day |
 | 499         | Out of balance                           |
 | 501         | Server Error                             |
+
+### Note about signatures
+
+- There's no signature id returned with the template when requested. 
+- A signature cannot be deleted
+- Maximum of 5 signatures per sendcloud account
+- A template can only be edited when it hasn't passed verfication
 
 ## Roadmap
 
